@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Ian 🍯</title>
-    <!-- Fuentes bonitas -->
+    <!-- Fuentes redondas y cálidas -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -28,7 +28,7 @@
             background: #ffffff;
             border: 6px solid #f2c94c;
             border-radius: 30px;
-            max-width: 460px;
+            max-width: 440px;
             width: 100%;
             padding: 0 0 30px 0;
             text-align: center;
@@ -36,14 +36,15 @@
             overflow: hidden;
             position: relative;
         }
-        /* Header decorativo con ilustración de Pooh */
+        
+        /* Banner con Ilustración Inicial */
         .header-banner {
             background: linear-gradient(180deg, #fff2cb 0%, #ffffff 100%);
             padding: 30px 20px 10px 20px;
             position: relative;
         }
         .pooh-img {
-            width: 160px;
+            width: 150px;
             height: auto;
             margin-bottom: 10px;
             filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.1));
@@ -56,50 +57,71 @@
             padding: 6px 18px;
             border-radius: 20px;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
         h1 {
             font-family: 'Fredoka', cursive;
             color: #d97724;
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             line-height: 1.1;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
+        }
+        .baby-status {
+            font-size: 0.95rem;
+            color: #8c6d53;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
         .baby-name {
             font-family: 'Fredoka', cursive;
             color: #2a9d8f;
-            font-size: 1.9rem;
+            font-size: 2.2rem;
             margin-bottom: 6px;
         }
-        .parents-name {
-            font-size: 0.95rem;
-            color: #8c6d53;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .subtitle {
-            font-size: 0.95rem;
-            color: #7d624c;
-            padding: 0 20px;
-            line-height: 1.4;
-        }
-        
-        /* Sección de detalles */
-        .card-body {
-            padding: 20px 25px 10px 25px;
-        }
-        .details-box {
+
+        /* Sección Papitos & Frase (Estructura Video) */
+        .parents-box {
             background-color: #fffbf2;
             border: 2px dashed #ebd292;
             border-radius: 20px;
-            padding: 20px;
+            padding: 16px;
+            margin: 15px 25px 20px 25px;
+        }
+        .parents-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #d97724;
+            margin-bottom: 2px;
+        }
+        .parents-names {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.5rem;
+            color: #4a3b32;
+            margin-bottom: 8px;
+        }
+        .quote-video {
+            font-style: italic;
+            font-size: 0.88rem;
+            color: #6e5847;
+            line-height: 1.4;
+        }
+
+        /* Detalles Evento */
+        .card-body {
+            padding: 0 25px 10px 25px;
+        }
+        .details-box {
+            background-color: #fcf8ee;
+            border-radius: 20px;
+            padding: 18px;
             margin-bottom: 20px;
             text-align: left;
         }
         .detail-item {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             font-size: 0.95rem;
@@ -108,51 +130,63 @@
             margin-bottom: 0;
         }
         .icon {
-            font-size: 1.4rem;
-            margin-right: 14px;
+            font-size: 1.3rem;
+            margin-right: 12px;
             background: #ffe8ad;
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
-        .detail-text {
-            line-height: 1.3;
-        }
         .detail-text strong {
             color: #3b2e27;
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        /* Sección Wishbob especial */
-        .gift-box {
-            background: linear-gradient(135deg, #e3f2fd 0%, #fffbf2 100%);
-            border: 2px solid #a5d6a7;
+        /* Cuenta Regresiva */
+        .countdown-box {
+            background: #f0f7f4;
+            border: 2px solid #b2d8d8;
             border-radius: 20px;
-            padding: 18px;
+            padding: 15px;
             margin-bottom: 20px;
-            text-align: center;
         }
-        .gift-title {
+        .countdown-title {
             font-family: 'Fredoka', cursive;
-            color: #2e7d32;
-            font-size: 1.2rem;
-            margin-bottom: 6px;
+            color: #2a9d8f;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
         }
-        .gift-desc {
-            font-size: 0.88rem;
-            color: #555;
-            margin-bottom: 12px;
-            line-height: 1.3;
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .time-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 60px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .time-num {
+            font-family: 'Fredoka', cursive;
+            font-size: 1.3rem;
+            color: #d97724;
+        }
+        .time-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #8c6d53;
         }
 
-        /* Botones interactivos */
+        /* Botones Originales */
         .btn-group {
             display: flex;
             flex-direction: column;
@@ -171,28 +205,29 @@
             padding: 14px;
             border-radius: 14px;
             font-weight: 700;
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             box-shadow: 0 4px 10px rgba(42, 157, 143, 0.25);
-            transition: all 0.2s ease;
+            transition: transform 0.2s;
         }
-        .btn-wishbob {
-            background-color: #43a047;
-            box-shadow: 0 4px 10px rgba(67, 160, 71, 0.25);
+        .btn:active {
+            transform: scale(0.98);
         }
         .btn-map {
             background-color: #e9c46a;
             color: #4a3a1a;
             box-shadow: 0 4px 10px rgba(233, 196, 106, 0.3);
         }
-        
-        /* Frase final */
-        .quote {
+        .btn-wishbob {
+            background-color: #43a047;
+            box-shadow: 0 4px 10px rgba(67, 160, 71, 0.25);
+        }
+
+        .final-quote {
             font-style: italic;
             font-size: 0.85rem;
             color: #9c826b;
-            margin-top: 25px;
+            margin-top: 20px;
             padding: 0 20px;
-            line-height: 1.4;
         }
     </style>
 </head>
@@ -200,20 +235,28 @@
 
 <div class="card-container">
     <div class="header-banner">
-        <!-- Ilustración Winnie the Pooh -->
+        <!-- Winnie the Pooh Clásico -->
         <img class="pooh-img" src="https://upload.wikimedia.org/wikipedia/en/1/10/Winniethepooh.png" alt="Winnie the Pooh">
         <div>
             <span class="tag">¡Estás Invitado!</span>
             <h1>BABY SHOWER</h1>
-            <div class="baby-name">Esperando a IAN 🍯</div>
-            <div class="parents-name">Papitos: Elkin & Vanessa</div>
-            <p class="subtitle">Acompáñanos a celebrar la pronta llegada de nuestro pequeño osito.</p>
+            <div class="baby-status">¡Baby Boy está en camino!</div>
+            <div class="baby-name">IAN 🍯</div>
         </div>
     </div>
 
+    <!-- Sección Papitos + Frase del Video -->
+    <div class="parents-box">
+        <div class="parents-title">Mis papitos</div>
+        <div class="parents-names">Elkin & Vanessa</div>
+        <p class="quote-video">
+            "El amor se multiplica y en la familia habrá una nueva sonrisa iluminando nuestras vidas. ¡Gracias por ser parte de esta alegría!"
+        </p>
+    </div>
+
     <div class="card-body">
+        <!-- Datos del Evento -->
         <div class="details-box">
-            <!-- 1. FECHA -->
             <div class="detail-item">
                 <span class="icon">📅</span>
                 <div class="detail-text">
@@ -222,7 +265,6 @@
                 </div>
             </div>
 
-            <!-- 2. HORA -->
             <div class="detail-item">
                 <span class="icon">⏰</span>
                 <div class="detail-text">
@@ -231,7 +273,6 @@
                 </div>
             </div>
 
-            <!-- 3. LUGAR Y DIRECCIÓN -->
             <div class="detail-item">
                 <span class="icon">📍</span>
                 <div class="detail-text">
@@ -241,35 +282,58 @@
             </div>
         </div>
 
-        <!-- SECCIÓN DE REGALOS WISHBOB -->
-        <div class="gift-box">
-            <div class="gift-title">🎁 Lista de Regalos</div>
-            <p class="gift-desc">Para facilitar la elección, preparamos una lista de sugerencias para el pequeño Ian:</p>
-            <!-- REEMPLAZA EL ENLACE ABAJO POR TU LINK DE TU LISTA DE WISHBOB -->
-            <a href="https://www.wishbob.com/es" class="btn btn-wishbob" target="_blank">
-                🎁 Ver Lista de Regalos en Wishbob
-            </a>
+        <!-- Cuenta Regresiva -->
+        <div class="countdown-box">
+            <div class="countdown-title">⏳ Cuenta Regresiva</div>
+            <div class="timer-grid">
+                <div class="time-card"><div class="time-num" id="days">00</div><div class="time-label">Días</div></div>
+                <div class="time-card"><div class="time-num" id="hours">00</div><div class="time-label">Horas</div></div>
+                <div class="time-card"><div class="time-num" id="minutes">00</div><div class="time-label">Min</div></div>
+                <div class="time-card"><div class="time-num" id="seconds">00</div><div class="time-label">Seg</div></div>
+            </div>
         </div>
     </div>
 
-    <!-- BOTONES DE ACCIÓN -->
+    <!-- Botones Coloridos Iniciales -->
     <div class="btn-group">
-        <!-- Reemplaza el número 573000000000 con el celular de Elkin o Vanessa -->
+        <!-- Reemplaza 573000000000 por tu WhatsApp -->
         <a href="https://wa.me/573000000000?text=¡Hola!%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Ian%20🍯" class="btn" target="_blank">
-            💬 Confirmar por WhatsApp
+            💬 Confirmar Asistencia por WhatsApp
         </a>
 
-        <!-- Ubicación directa en Google Maps -->
+        <!-- Mapa -->
         <a href="https://maps.google.com/?q=Diagonal+46+Sur+%23+50-22+Bogota" class="btn btn-map" target="_blank">
             🗺️ Ver Ubicación en Google Maps
         </a>
+
+        <!-- Link Wishbob -->
+        <a href="https://www.wishbob.com/es" class="btn btn-wishbob" target="_blank">
+            🎁 Ver Lista de Regalos (Wishbob)
+        </a>
     </div>
 
-    <p class="quote">
+    <p class="final-quote">
         "A veces las cosas más pequeñas ocupan el espacio más grande en tu corazón."<br>
         <strong>— Winnie the Pooh</strong>
     </p>
 </div>
+
+<script>
+    // Contador regresivo
+    const targetDate = new Date("September 6, 2026 14:00:00").getTime();
+
+    setInterval(function() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+            document.getElementById("days").innerText = Math.floor(difference / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((difference % (1000 * 60)) / 1000);
+        }
+    }, 1000);
+</script>
 
 </body>
 </html>
