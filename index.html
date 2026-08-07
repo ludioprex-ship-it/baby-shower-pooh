@@ -38,7 +38,7 @@
             position: relative;
         }
 
-        /* --- GLOBOS Y ELEMENTOS FLOTANTES (CAPA VISIBLE DESDE EL INICIO) --- */
+        /* --- GLOBOS Y ELEMENTOS FLOTANTES (DETRÁS DEL SOBRE Y TARJETA) --- */
         .balloon-container {
             position: fixed;
             top: 0;
@@ -47,19 +47,19 @@
             height: 100%;
             overflow: hidden;
             pointer-events: none;
-            z-index: 9998; /* Se ubica justo detrás del sobre */
+            z-index: 10; /* Ubicado por detrás de la tarjeta y el sobre */
         }
         .floating-item {
             position: absolute;
             bottom: -50px;
             font-size: 1.8rem;
-            opacity: 0.75;
+            opacity: 0.8;
             animation: floatUp linear infinite;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
+            10% { opacity: 0.85; }
+            90% { opacity: 0.85; }
             100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
         }
 
@@ -70,9 +70,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(244, 236, 225, 0.92); /* Ligeramente translúcido para ver pasar los globos */
-            backdrop-filter: blur(3px); /* Suave desenfoque de fondo */
-            z-index: 9999;
+            background: transparent; /* Transparente para ver los globos pasar en el fondo */
+            z-index: 100;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -81,17 +80,18 @@
         }
         .envelope-card {
             background: #ffffff;
-            border: 4px solid #f2c94c;
-            border-radius: 20px;
-            padding: 30px 20px;
+            border: 5px solid #f2c94c;
+            border-radius: 25px;
+            padding: 35px 25px;
             width: 90%;
             max-width: 380px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(184, 134, 11, 0.25);
+            box-shadow: 0 15px 35px rgba(184, 134, 11, 0.25);
             position: relative;
+            z-index: 101;
         }
         .envelope-seal {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             margin-bottom: 10px;
             display: inline-block;
             animation: bounceSeal 2s infinite alternate;
@@ -103,24 +103,25 @@
         .envelope-title {
             font-family: 'Fredoka', cursive;
             color: #d97724;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             margin-bottom: 8px;
         }
         .envelope-sub {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #7a614c;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            font-weight: 600;
         }
         .btn-open {
             background: #2a9d8f;
             color: white;
             border: none;
-            padding: 14px 28px;
+            padding: 14px 30px;
             border-radius: 50px;
             font-family: 'Fredoka', cursive;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+            box-shadow: 0 6px 16px rgba(42, 157, 143, 0.35);
             transition: transform 0.2s, background 0.2s;
         }
         .btn-open:hover {
@@ -128,7 +129,7 @@
             background: #238579;
         }
 
-        /* --- TARJETA PRINCIPAL --- */
+        /* --- TARJETA PRINCIPAL (OCULTA INICIALMENTE) --- */
         .card-container {
             background: #ffffff;
             border: 6px solid #f2c94c;
@@ -142,6 +143,19 @@
             position: relative;
             z-index: 20;
             perspective: 1000px;
+            
+            /* Estado oculto antes de abrir */
+            opacity: 0;
+            transform: scale(0.92);
+            pointer-events: none;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        /* Estado visible al abrir el sobre */
+        .card-container.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
         }
         
         /* Banner e Imagen Parallax 3D */
@@ -366,7 +380,7 @@
 <!-- Capa para animación de globos (pasa por detrás del sobre) -->
 <div class="balloon-container" id="balloonContainer"></div>
 
-<!-- TARJETA PRINCIPAL -->
+<!-- TARJETA PRINCIPAL (Oculta al inicio) -->
 <div class="card-container" id="cardContainer">
     <div class="header-banner">
         <!-- Winnie the Pooh con Parallax 3D -->
@@ -458,13 +472,20 @@
     // 1. APERTURA DE SOBRE
     function openEnvelope() {
         const overlay = document.getElementById('envelopeOverlay');
+        const card = document.getElementById('cardContainer');
+        
+        // Oculta el sobre
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
+        overlay.style.pointerEvents = 'none';
+        
+        // Muestra la tarjeta principal
+        card.classList.add('visible');
         
         // Dispara un toque de confeti al abrir
         confetti({
-            particleCount: 50,
-            spread: 60,
+            particleCount: 65,
+            spread: 70,
             origin: { y: 0.6 }
         });
     }
