@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Ian 🍯</title>
     
-    <!-- Vista Previa para WhatsApp / Redes Sociales (Open Graph) -->
     <meta property="og:title" content="¡Baby Shower de Ian! 🍯">
     <meta property="og:description" content="Acompáñanos a celebrar la llegada de nuestro pequeño osito. Haz clic para ver detalles y confirmar asistencia.">
     <meta property="og:image" content="https://ludioprex-ship-it.github.io/baby-shower-pooh/portada.jpg">
     <meta property="og:type" content="website">
 
-    <!-- Fuentes redondas y cálidas -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -34,7 +35,71 @@
             position: relative;
         }
 
-        /* --- EFECTO DE GLOBOS Y ELEMENTOS FLOTANTES --- */
+        /* --- PANTALLA DEL SOBRE / CARTA (OVERLAY) --- */
+        .envelope-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f4ece1;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .envelope-card {
+            background: #ffffff;
+            border: 4px solid #f2c94c;
+            border-radius: 20px;
+            padding: 30px 20px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(184, 134, 11, 0.25);
+            position: relative;
+        }
+        .envelope-seal {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: bounceSeal 2s infinite alternate;
+        }
+        @keyframes bounceSeal {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+        .envelope-title {
+            font-family: 'Fredoka', cursive;
+            color: #d97724;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .envelope-sub {
+            font-size: 0.95rem;
+            color: #7a614c;
+            margin-bottom: 20px;
+        }
+        .btn-open {
+            background: #2a9d8f;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: 'Fredoka', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(42, 157, 143, 0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .btn-open:hover {
+            transform: scale(1.05);
+            background: #238579;
+        }
+
+        /* --- GLOBOS Y ELEMENTOS FLOTANTES --- */
         .balloon-container {
             position: fixed;
             top: 0;
@@ -42,8 +107,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            pointer-events: none; /* Permite hacer clic a través de los globos */
-            z-index: 999;
+            pointer-events: none;
+            z-index: 10;
         }
         .floating-item {
             position: absolute;
@@ -53,20 +118,10 @@
             animation: floatUp linear infinite;
         }
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-105vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
         }
 
         /* --- TARJETA PRINCIPAL --- */
@@ -81,26 +136,29 @@
             box-shadow: 0 15px 35px rgba(184, 134, 11, 0.2);
             overflow: hidden;
             position: relative;
-            z-index: 10;
+            z-index: 20;
+            perspective: 1000px; /* Habilita el efecto 3D */
         }
         
-        /* Banner con Ilustración Inicial */
+        /* Banner e Imagen Parallax 3D */
         .header-banner {
             background: linear-gradient(180deg, #fff2cb 0%, #ffffff 100%);
             padding: 30px 20px 10px 20px;
             position: relative;
         }
+        .pooh-wrapper {
+            display: inline-block;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
         .pooh-img {
             width: 150px;
             height: auto;
             margin-bottom: 10px;
-            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.1));
-            animation: pulsePooh 3s ease-in-out infinite alternate;
+            filter: drop-shadow(0px 8px 12px rgba(0,0,0,0.15));
+            pointer-events: none;
         }
-        @keyframes pulsePooh {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.04); }
-        }
+
         .tag {
             background-color: #e07a5f;
             color: white;
@@ -260,6 +318,8 @@
             font-size: 0.95rem;
             box-shadow: 0 4px 10px rgba(42, 157, 143, 0.25);
             transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
         }
         .btn:hover {
             transform: translateY(-2px);
@@ -289,13 +349,22 @@
 </head>
 <body>
 
-<!-- Capa para la animación de globos -->
+<div class="envelope-overlay" id="envelopeOverlay">
+    <div class="envelope-card">
+        <div class="envelope-seal">🍯</div>
+        <div class="envelope-title">¡Tienes una Invitación!</div>
+        <div class="envelope-sub">Baby Shower de Ian</div>
+        <button class="btn-open" onclick="openEnvelope()">✉️ Abrir Invitación</button>
+    </div>
+</div>
+
 <div class="balloon-container" id="balloonContainer"></div>
 
-<div class="card-container">
+<div class="card-container" id="cardContainer">
     <div class="header-banner">
-        <!-- Winnie the Pooh Clásico con suave balanceo -->
-        <img class="pooh-img" src="https://upload.wikimedia.org/wikipedia/en/1/10/Winniethepooh.png" alt="Winnie the Pooh">
+        <div class="pooh-wrapper" id="poohWrapper">
+            <img class="pooh-img" src="https://upload.wikimedia.org/wikipedia/en/1/10/Winniethepooh.png" alt="Winnie the Pooh">
+        </div>
         <div>
             <span class="tag">¡Estás Invitado!</span>
             <h1>BABY SHOWER</h1>
@@ -304,7 +373,6 @@
         </div>
     </div>
 
-    <!-- Sección Papitos -->
     <div class="parents-box">
         <div class="parents-title">Mis papitos</div>
         <div class="parents-names">Elkin & Vanessa</div>
@@ -314,7 +382,6 @@
     </div>
 
     <div class="card-body">
-        <!-- Datos del Evento -->
         <div class="details-box">
             <div class="detail-item">
                 <span class="icon">📅</span>
@@ -341,7 +408,6 @@
             </div>
         </div>
 
-        <!-- Cuenta Regresiva -->
         <div class="countdown-box">
             <div class="countdown-title">⏳ Cuenta Regresiva</div>
             <div class="timer-grid">
@@ -353,19 +419,15 @@
         </div>
     </div>
 
-    <!-- Botones de Acción -->
     <div class="btn-group">
-        <!-- Google Formulario -->
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScLLVlrvtlc60Ry6ZXYRIf9SQabYCkIZdRV-3tgubF0LUOOiQ/viewform?usp=publish-editor" class="btn" target="_blank">
+        <button class="btn" onclick="triggerConfettiAndRedirect('https://docs.google.com/forms/d/e/1FAIpQLScLLVlrvtlc60Ry6ZXYRIf9SQabYCkIZdRV-3tgubF0LUOOiQ/viewform?usp=publish-editor')">
             📋 Confirmar Asistencia (Formulario)
-        </a>
+        </button>
 
-        <!-- Google Maps -->
         <a href="https://maps.google.com/?q=Diagonal+46+Sur+%23+50-22+Bogota" class="btn btn-map" target="_blank">
             🗺️ Ver Ubicación en Google Maps
         </a>
 
-        <!-- Lista de Regalos Wishbob -->
         <a href="https://www.wishbob.com/twaygqvrsb" class="btn btn-wishbob" target="_blank">
             🎁 Ver Lista de Regalos (Wishbob)
         </a>
@@ -378,9 +440,53 @@
 </div>
 
 <script>
-    // Contador regresivo automático
-    const targetDate = new Date("September 6, 2026 14:00:00").getTime();
+    // 1. APERTURA DE SOBRE
+    function openEnvelope() {
+        const overlay = document.getElementById('envelopeOverlay');
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        
+        // Dispara un toque de confeti al abrir
+        confetti({
+            particleCount: 50,
+            spread: 60,
+            origin: { y: 0.6 }
+        });
+    }
 
+    // 2. EFECTO CONFETI AL CONFIRMAR
+    function triggerConfettiAndRedirect(url) {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.7 },
+            colors: ['#2a9d8f', '#e9c46a', '#f4a261', '#e76f51', '#f2c94c']
+        });
+        
+        // Espera un momento para disfrutar el confeti antes de abrir la pestaña
+        setTimeout(() => {
+            window.open(url, '_blank');
+        }, 800);
+    }
+
+    // 3. PARALLAX 3D PARA WINNIE THE POOH
+    const container = document.getElementById('cardContainer');
+    const pooh = document.getElementById('poohWrapper');
+
+    container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - (rect.width / 2);
+        const y = e.clientY - rect.top - (rect.height / 2);
+        
+        pooh.style.transform = `rotateY(${x / 12}deg) rotateX(${-y / 12}deg) scale(1.05)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        pooh.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
+    });
+
+    // 4. CONTADOR REGRESIVO
+    const targetDate = new Date("September 6, 2026 14:00:00").getTime();
     setInterval(function() {
         const now = new Date().getTime();
         const difference = targetDate - now;
@@ -393,30 +499,23 @@
         }
     }, 1000);
 
-    // Generador dinámico de globos y elementos flotantes
-    const container = id => document.getElementById(id);
+    // 5. GLOBOS FLOTANTES
+    const balloonContainer = document.getElementById('balloonContainer');
     const items = ['🎈', '🎈', '🍯', '🐝', '✨', '💛', '🎈'];
 
     function createFloatingItem() {
         const item = document.createElement('div');
         item.classList.add('floating-item');
         item.innerText = items[Math.floor(Math.random() * items.length)];
-        
-        // Posición horizontal y tiempos aleatorios para naturalidad
         item.style.left = Math.random() * 95 + 'vw';
-        const duration = Math.random() * 5 + 6; // Entre 6s y 11s
+        const duration = Math.random() * 5 + 6;
         item.style.animationDuration = duration + 's';
         item.style.fontSize = (Math.random() * 1.2 + 1.2) + 'rem';
 
-        container('balloonContainer').appendChild(item);
+        balloonContainer.appendChild(item);
 
-        // Limpieza de memoria
-        setTimeout(() => {
-            item.remove();
-        }, duration * 1000);
+        setTimeout(() => { item.remove(); }, duration * 1000);
     }
-
-    // Crear un nuevo elemento cada 800ms
     setInterval(createFloatingItem, 800);
 </script>
 
