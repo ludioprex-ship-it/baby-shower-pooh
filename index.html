@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Ian 🍯</title>
     
+    <!-- Vista Previa para WhatsApp / Redes Sociales (Open Graph) -->
     <meta property="og:title" content="¡Baby Shower de Ian! 🍯">
     <meta property="og:description" content="Acompáñanos a celebrar la llegada de nuestro pequeño osito. Haz clic para ver detalles y confirmar asistencia.">
     <meta property="og:image" content="https://ludioprex-ship-it.github.io/baby-shower-pooh/8bb23f20-b815-4597-b331-8279c9d2c7c7.jpg">
     <meta property="og:type" content="website">
 
+    <!-- Fuentes redondas y cálidas -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -28,7 +30,46 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px 10px;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* --- EFECTO DE GLOBOS Y ELEMENTOS FLOTANTES --- */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none; /* Permite hacer clic a través de los globos */
+            z-index: 999;
+        }
+        .floating-item {
+            position: absolute;
+            bottom: -50px;
+            font-size: 1.8rem;
+            opacity: 0.75;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- TARJETA PRINCIPAL --- */
         .card-container {
             background: #ffffff;
             border: 6px solid #f2c94c;
@@ -40,6 +81,7 @@
             box-shadow: 0 15px 35px rgba(184, 134, 11, 0.2);
             overflow: hidden;
             position: relative;
+            z-index: 10;
         }
         
         /* Banner con Ilustración Inicial */
@@ -53,6 +95,11 @@
             height: auto;
             margin-bottom: 10px;
             filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.1));
+            animation: pulsePooh 3s ease-in-out infinite alternate;
+        }
+        @keyframes pulsePooh {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.04); }
         }
         .tag {
             background-color: #e07a5f;
@@ -212,7 +259,11 @@
             font-weight: 700;
             font-size: 0.95rem;
             box-shadow: 0 4px 10px rgba(42, 157, 143, 0.25);
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(42, 157, 143, 0.35);
         }
         .btn:active {
             transform: scale(0.98);
@@ -238,8 +289,12 @@
 </head>
 <body>
 
+<!-- Capa para la animación de globos -->
+<div class="balloon-container" id="balloonContainer"></div>
+
 <div class="card-container">
     <div class="header-banner">
+        <!-- Winnie the Pooh Clásico con suave balanceo -->
         <img class="pooh-img" src="https://upload.wikimedia.org/wikipedia/en/1/10/Winniethepooh.png" alt="Winnie the Pooh">
         <div>
             <span class="tag">¡Estás Invitado!</span>
@@ -249,6 +304,7 @@
         </div>
     </div>
 
+    <!-- Sección Papitos -->
     <div class="parents-box">
         <div class="parents-title">Mis papitos</div>
         <div class="parents-names">Elkin & Vanessa</div>
@@ -258,6 +314,7 @@
     </div>
 
     <div class="card-body">
+        <!-- Datos del Evento -->
         <div class="details-box">
             <div class="detail-item">
                 <span class="icon">📅</span>
@@ -284,6 +341,7 @@
             </div>
         </div>
 
+        <!-- Cuenta Regresiva -->
         <div class="countdown-box">
             <div class="countdown-title">⏳ Cuenta Regresiva</div>
             <div class="timer-grid">
@@ -295,15 +353,19 @@
         </div>
     </div>
 
+    <!-- Botones de Acción -->
     <div class="btn-group">
+        <!-- Google Formulario -->
         <a href="https://docs.google.com/forms/d/e/1FAIpQLScLLVlrvtlc60Ry6ZXYRIf9SQabYCkIZdRV-3tgubF0LUOOiQ/viewform?usp=publish-editor" class="btn" target="_blank">
             📋 Confirmar Asistencia (Formulario)
         </a>
 
+        <!-- Google Maps -->
         <a href="https://maps.google.com/?q=Diagonal+46+Sur+%23+50-22+Bogota" class="btn btn-map" target="_blank">
             🗺️ Ver Ubicación en Google Maps
         </a>
 
+        <!-- Lista de Regalos Wishbob -->
         <a href="https://www.wishbob.com/twaygqvrsb" class="btn btn-wishbob" target="_blank">
             🎁 Ver Lista de Regalos (Wishbob)
         </a>
@@ -330,6 +392,32 @@
             document.getElementById("seconds").innerText = Math.floor((difference % (1000 * 60)) / 1000);
         }
     }, 1000);
+
+    // Generador dinámico de globos y elementos flotantes
+    const container = id => document.getElementById(id);
+    const items = ['🎈', '🎈', '🍯', '🐝', '✨', '💛', '🎈'];
+
+    function createFloatingItem() {
+        const item = document.createElement('div');
+        item.classList.add('floating-item');
+        item.innerText = items[Math.floor(Math.random() * items.length)];
+        
+        // Posición horizontal y tiempos aleatorios para naturalidad
+        item.style.left = Math.random() * 95 + 'vw';
+        const duration = Math.random() * 5 + 6; // Entre 6s y 11s
+        item.style.animationDuration = duration + 's';
+        item.style.fontSize = (Math.random() * 1.2 + 1.2) + 'rem';
+
+        container('balloonContainer').appendChild(item);
+
+        // Limpieza de memoria
+        setTimeout(() => {
+            item.remove();
+        }, duration * 1000);
+    }
+
+    // Crear un nuevo elemento cada 800ms
+    setInterval(createFloatingItem, 800);
 </script>
 
 </body>
