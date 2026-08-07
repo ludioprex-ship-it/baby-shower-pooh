@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Shower - Ian 🍯</title>
     
+    <!-- Vista Previa para WhatsApp / Redes Sociales (Open Graph) -->
     <meta property="og:title" content="¡Baby Shower de Ian! 🍯">
     <meta property="og:description" content="Acompáñanos a celebrar la llegada de nuestro pequeño osito. Haz clic para ver detalles y confirmar asistencia.">
     <meta property="og:image" content="https://ludioprex-ship-it.github.io/baby-shower-pooh/portada.jpg">
     <meta property="og:type" content="website">
 
+    <!-- Fuentes redondas y cálidas -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Librería para el Confeti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
@@ -35,6 +38,31 @@
             position: relative;
         }
 
+        /* --- GLOBOS Y ELEMENTOS FLOTANTES (CAPA VISIBLE DESDE EL INICIO) --- */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 9998; /* Se ubica justo detrás del sobre */
+        }
+        .floating-item {
+            position: absolute;
+            bottom: -50px;
+            font-size: 1.8rem;
+            opacity: 0.75;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+
         /* --- PANTALLA DEL SOBRE / CARTA (OVERLAY) --- */
         .envelope-overlay {
             position: fixed;
@@ -42,7 +70,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #f4ece1;
+            background: rgba(244, 236, 225, 0.92); /* Ligeramente translúcido para ver pasar los globos */
+            backdrop-filter: blur(3px); /* Suave desenfoque de fondo */
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -99,31 +128,6 @@
             background: #238579;
         }
 
-        /* --- GLOBOS Y ELEMENTOS FLOTANTES --- */
-        .balloon-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .floating-item {
-            position: absolute;
-            bottom: -50px;
-            font-size: 1.8rem;
-            opacity: 0.75;
-            animation: floatUp linear infinite;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
-        }
-
         /* --- TARJETA PRINCIPAL --- */
         .card-container {
             background: #ffffff;
@@ -137,7 +141,7 @@
             overflow: hidden;
             position: relative;
             z-index: 20;
-            perspective: 1000px; /* Habilita el efecto 3D */
+            perspective: 1000px;
         }
         
         /* Banner e Imagen Parallax 3D */
@@ -349,6 +353,7 @@
 </head>
 <body>
 
+<!-- SOBRE DE BIENVENIDA -->
 <div class="envelope-overlay" id="envelopeOverlay">
     <div class="envelope-card">
         <div class="envelope-seal">🍯</div>
@@ -358,10 +363,13 @@
     </div>
 </div>
 
+<!-- Capa para animación de globos (pasa por detrás del sobre) -->
 <div class="balloon-container" id="balloonContainer"></div>
 
+<!-- TARJETA PRINCIPAL -->
 <div class="card-container" id="cardContainer">
     <div class="header-banner">
+        <!-- Winnie the Pooh con Parallax 3D -->
         <div class="pooh-wrapper" id="poohWrapper">
             <img class="pooh-img" src="https://upload.wikimedia.org/wikipedia/en/1/10/Winniethepooh.png" alt="Winnie the Pooh">
         </div>
@@ -373,6 +381,7 @@
         </div>
     </div>
 
+    <!-- Sección Papitos -->
     <div class="parents-box">
         <div class="parents-title">Mis papitos</div>
         <div class="parents-names">Elkin & Vanessa</div>
@@ -382,6 +391,7 @@
     </div>
 
     <div class="card-body">
+        <!-- Datos del Evento -->
         <div class="details-box">
             <div class="detail-item">
                 <span class="icon">📅</span>
@@ -408,6 +418,7 @@
             </div>
         </div>
 
+        <!-- Cuenta Regresiva -->
         <div class="countdown-box">
             <div class="countdown-title">⏳ Cuenta Regresiva</div>
             <div class="timer-grid">
@@ -419,15 +430,19 @@
         </div>
     </div>
 
+    <!-- Botones de Acción -->
     <div class="btn-group">
+        <!-- Botón con Confeti -->
         <button class="btn" onclick="triggerConfettiAndRedirect('https://docs.google.com/forms/d/e/1FAIpQLScLLVlrvtlc60Ry6ZXYRIf9SQabYCkIZdRV-3tgubF0LUOOiQ/viewform?usp=publish-editor')">
             📋 Confirmar Asistencia (Formulario)
         </button>
 
+        <!-- Google Maps -->
         <a href="https://maps.google.com/?q=Diagonal+46+Sur+%23+50-22+Bogota" class="btn btn-map" target="_blank">
             🗺️ Ver Ubicación en Google Maps
         </a>
 
+        <!-- Lista de Regalos Wishbob -->
         <a href="https://www.wishbob.com/twaygqvrsb" class="btn btn-wishbob" target="_blank">
             🎁 Ver Lista de Regalos (Wishbob)
         </a>
@@ -463,7 +478,6 @@
             colors: ['#2a9d8f', '#e9c46a', '#f4a261', '#e76f51', '#f2c94c']
         });
         
-        // Espera un momento para disfrutar el confeti antes de abrir la pestaña
         setTimeout(() => {
             window.open(url, '_blank');
         }, 800);
