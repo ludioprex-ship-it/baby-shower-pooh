@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Shower - Ian 🍯</title>
+    <title>Baby Shower - Valentino 🍯</title>
     
     <!-- Vista Previa para WhatsApp / Redes Sociales (Open Graph) -->
-    <meta property="og:title" content="¡Baby Shower de Ian! 🍯">
+    <meta property="og:title" content="¡Baby Shower de Valentino! 🍯">
     <meta property="og:description" content="Acompáñanos a celebrar la llegada de nuestro pequeño osito. Haz clic para ver detalles y confirmar asistencia.">
     <meta property="og:image" content="https://ludioprex-ship-it.github.io/baby-shower-pooh/portada.jpg">
     <meta property="og:type" content="website">
@@ -47,7 +47,7 @@
             height: 100%;
             overflow: hidden;
             pointer-events: none;
-            z-index: 10; /* Ubicado por detrás de la tarjeta y el sobre */
+            z-index: 10;
         }
         .floating-item {
             position: absolute;
@@ -70,7 +70,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: transparent; /* Transparente para ver los globos pasar en el fondo */
+            background: transparent;
             z-index: 100;
             display: flex;
             justify-content: center;
@@ -144,21 +144,18 @@
             z-index: 20;
             perspective: 1000px;
             
-            /* Estado oculto antes de abrir */
             opacity: 0;
             transform: scale(0.92);
             pointer-events: none;
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
-        /* Estado visible al abrir el sobre */
         .card-container.visible {
             opacity: 1;
             transform: scale(1);
             pointer-events: auto;
         }
         
-        /* Banner e Imagen Parallax 3D */
         .header-banner {
             background: linear-gradient(180deg, #fff2cb 0%, #ffffff 100%);
             padding: 30px 20px 10px 20px;
@@ -372,15 +369,15 @@
     <div class="envelope-card">
         <div class="envelope-seal">🍯</div>
         <div class="envelope-title">¡Tienes una Invitación!</div>
-        <div class="envelope-sub">Baby Shower de Ian</div>
+        <div class="envelope-sub">Baby Shower de Valentino</div>
         <button class="btn-open" onclick="openEnvelope()">✉️ Abrir Invitación</button>
     </div>
 </div>
 
-<!-- Capa para animación de globos (pasa por detrás del sobre) -->
+<!-- Capa para animación de globos -->
 <div class="balloon-container" id="balloonContainer"></div>
 
-<!-- TARJETA PRINCIPAL (Oculta al inicio) -->
+<!-- TARJETA PRINCIPAL -->
 <div class="card-container" id="cardContainer">
     <div class="header-banner">
         <!-- Winnie the Pooh con Parallax 3D -->
@@ -391,7 +388,7 @@
             <span class="tag">¡Estás Invitado!</span>
             <h1>BABY SHOWER</h1>
             <div class="baby-status">¡Baby Boy está en camino!</div>
-            <div class="baby-name">IAN 🍯</div>
+            <div class="baby-name">VALENTINO 🍯</div>
         </div>
     </div>
 
@@ -474,15 +471,12 @@
         const overlay = document.getElementById('envelopeOverlay');
         const card = document.getElementById('cardContainer');
         
-        // Oculta el sobre
         overlay.style.opacity = '0';
         overlay.style.visibility = 'hidden';
         overlay.style.pointerEvents = 'none';
         
-        // Muestra la tarjeta principal
         card.classList.add('visible');
         
-        // Dispara un toque de confeti al abrir
         confetti({
             particleCount: 65,
             spread: 70,
